@@ -19,7 +19,7 @@ namespace WinWarCS.Data.Storyboard
          switch (Stage)
          {
             case IntroStage.None:
-               EnterStage(IntroStage.SwampFortressEnter);
+               EnterStage(IntroStage.Castle);
                ChangeAudioState(AudioStage.None);
                break;
 

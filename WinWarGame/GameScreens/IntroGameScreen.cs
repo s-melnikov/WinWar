@@ -2,11 +2,7 @@ using FLCLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using WinWarCS.Data;
 using WinWarCS.Gui.Rendering;
 using System.IO;
 using WinWarCS.Gui;
@@ -49,8 +45,8 @@ namespace WinWarCS.GameScreens
          {
             storyboard = new IntroStoryboardNoVO();
          }
-         storyboard.OnStageSwitched += storyboard_OnStageSwitched;
-         storyboard.OnChangeMovieStatus += storyboard_OnChangeMovieStatus;
+         storyboard.OnStageSwitched += Storyboard_OnStageSwitched;
+         storyboard.OnChangeMovieStatus += Storyboard_OnChangeMovieStatus;
          storyboard.OnAudioStageSwitched += Storyboard_OnAudioStageSwitched;
 
          player = new FLCPlayer(MainGame.Device);
@@ -85,7 +81,7 @@ namespace WinWarCS.GameScreens
          }
       }
 
-      void storyboard_OnChangeMovieStatus(bool shouldPlay)
+      void Storyboard_OnChangeMovieStatus(bool shouldPlay)
       {
          if (shouldPlay)
          {
@@ -111,7 +107,7 @@ namespace WinWarCS.GameScreens
          }
       }
 
-      async void storyboard_OnStageSwitched(IntroStage newStage)
+      async void Storyboard_OnStageSwitched(IntroStage newStage)
       {
          switch (newStage)
          {
@@ -197,19 +193,19 @@ namespace WinWarCS.GameScreens
          }
       }
 
-      void player_OnFrameUpdated(Texture2D texture, FLCLib.FLCFile file)
+      void player_OnFrameUpdated(Texture2D texture, FLCFile file)
       {
          curTexture = texture;
       }
 
-      internal override void Update(Microsoft.Xna.Framework.GameTime gameTime)
+      internal override void Update(GameTime gameTime)
       {
          base.Update(gameTime);
 
          storyboard.Update(gameTime);
       }
 
-      internal override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
+      internal override void Draw(GameTime gameTime)
       {
          base.Draw(gameTime);
 
@@ -242,7 +238,7 @@ namespace WinWarCS.GameScreens
          }
       }
 
-      internal override void PointerUp(Microsoft.Xna.Framework.Vector2 position, PointerType pointerType)
+      internal override void PointerUp(Vector2 position, PointerType pointerType)
       {
          if (player != null)
          {

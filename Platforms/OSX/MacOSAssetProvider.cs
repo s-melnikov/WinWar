@@ -5,12 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinWarCS.Data;
+using MonoMac.Foundation;
 
 namespace WinWarCS.MacOS
 {
    class MacOSAssetProvider : IAssetProvider
    {
       public string InstalledLocation => AppDomain.CurrentDomain.BaseDirectory;
+
+      public string ResourceLocation
+      {
+         get
+         {
+            return NSBundle.MainBundle.ResourcePath;
+         }
+      }
 
       public string ExpectedDataDirectory => Path.Combine(InstalledLocation, "Assets" + DirectorySeparatorChar + "Data" + DirectorySeparatorChar);
 
@@ -19,7 +28,14 @@ namespace WinWarCS.MacOS
       public async Task<FileStream> OpenContentFile(string relativeFilename, bool readOnly = true)
       {
          string filename = System.IO.Path.Combine(InstalledLocation, relativeFilename);
-         return new FileStream(filename, readOnly ? FileMode.Open : FileMode.OpenOrCreate, readOnly ? FileAccess.Read : FileAccess.ReadWrite);
+         try
+         {
+            return new FileStream(filename, readOnly ? FileMode.Open : FileMode.OpenOrCreate, readOnly ? FileAccess.Read : FileAccess.ReadWrite);
+         } catch (FileNotFoundException)
+         {
+            filename = System.IO.Path.Combine(ResourceLocation, relativeFilename);
+            return new FileStream(filename, readOnly ? FileMode.Open : FileMode.OpenOrCreate, readOnly ? FileAccess.Read : FileAccess.ReadWrite);
+         }
       }
    }
 }

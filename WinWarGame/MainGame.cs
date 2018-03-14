@@ -257,6 +257,9 @@ namespace WinWarCS
 
       internal void SetNextGameScreen (BaseGameScreen setNextGameScreen)
       {
+         // Ensure that all audio is stopped when switchting game screens
+         soundManager?.StopAll();
+
          nextGameScreen = setNextGameScreen;
       }
 
@@ -268,7 +271,7 @@ namespace WinWarCS
       protected override void Update (GameTime gameTime)
       {
          Performance.Push("Game loop");
-         soundManager.Update(gameTime);
+         soundManager?.Update(gameTime);
          Platform.Input.UpdateInput (gameTime);
 
          if (nextGameScreen != null) 

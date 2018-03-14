@@ -100,9 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
-    <None Include="..\Common\Assets\entities.xml">
-      <Link>Assets\entities.xml</Link>
-    </None>
     <None Include="..\Common\Assets\warcraft.icns">
       <Link>Assets\warcraft.icns</Link>
     </None>
@@ -135,6 +132,9 @@
       <Link>Assets\warcraft-logo-store_64.png</Link>
     </BundleResource>
     <BundleResource Include="Resources\warcraft.icns" />
+    <BundleResource Include="..\Common\Assets\entities.xml">
+      <Link>Assets\entities.xml</Link>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Common\Assets\DefaultFont.xnb">
